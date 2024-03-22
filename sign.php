@@ -1,9 +1,5 @@
 <?php
 
-require_once __DIR__ . "/FPDI-2.6.0/src/autoload.php";
-
-use setasign\Fpdi\Tcpdf\Fpdi;
-
 /**
  * Single sign OpenSSL PDF files.
  * 
@@ -11,33 +7,28 @@ use setasign\Fpdi\Tcpdf\Fpdi;
  * @param string $certification This is the path to the public Key or certificiation.
  * @param string $private_key This is the path to the private key.
  * @param string $password Password for private key.
- * @param array $info The necessary singing info for PDFs.
  * @param ?string $signedFile The ouptut signed file path. If empty will replace $file.
  * 
  * @author Jordan Castro
  */
-function singleSign($file, $certification, $private_key, $password, $info, $signedFile="")
+function singleSign($file, $certification, $private_key, $password, $signedFile="")
 {
-    $pdf = new Fpdi(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-    $pageCount = $pdf->setSourceFile($file);
-
-    for ($x = 1; $x <= $pageCount; $x++) {
-        $tplIdx = $pdf->importPage($x);
-
-        // Add a page
-        $pdf->AddPage();
-        $pdf->useTemplate($tplIdx, null, null, null, null, true);
-    }
-
-    $pdf->setSignature($certification, $private_key, $password, '', 2, $info);
-
-    $bytes = $pdf->Output($file, "S");
-
+    echo "\nStarting PHP Hanko";
     if ($signedFile == "") {
         $signedFile = $file;
+        echo "\nNo Sign File Passed - Using ORIGIN";
     }
 
-    file_put_contents($signedFile, $bytes);
+    // Call PYHANKO
+    $command = "pyhanko sign addsig --field Sig1 pemder --key $private_key --cert $certification $file $signedFile --no-pass";
+    echo "\nCALLING: $command";
+
+    $output = [];
+    $return_var = 0;
+    exec($command, $output, $return_var);
+
+    echo "\nOUTPUT: " . json_encode($output);
+    echo "\nRESULT: " . $return_var;
 }
 
 /**
@@ -49,6 +40,9 @@ function singleSign($file, $certification, $private_key, $password, $info, $sign
  */
 function verifySignedPDF($file) {
     $handle = fopen($file, 'r');
+    if ($handle === false) {
+        return false;
+    }
     $valid = false;
     $methods = [
         "adbe.pkcs7.detached",

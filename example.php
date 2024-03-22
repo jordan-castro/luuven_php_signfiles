@@ -3,13 +3,13 @@
 require_once "./sign.php";
 
 // PDF file path
-$pdfFilePath = "PATH_TO_YOUR_PDF.pdf";
+$pdfFilePath = "PDF_PATH.pdf";
 
 // Path to your Certificate
-$certificatePath = "PATH_TO_YOUR_CERTIFICATE.crt";
+$certificatePath = "CERTIFICATE.crt";
 
 // Path to your private key
-$privateKeyPath = "PATH_TO_YOUR_PRIVATE_KEY.pem";
+$privateKeyPath = "PRIVATE_KEY.pem";
 
 // Password for private key
 $passwordForPrivateKey = "password";
@@ -18,12 +18,7 @@ $passwordForPrivateKey = "password";
 $outputPdfFilePath = "output.pdf";
 
 // Add a SINGLE signature to a PDF
-singleSign($pdfFilePath, $certificatePath, $privateKeyPath, $passwordForPrivateKey, [
-    'Name' => 'LUUVEN',
-    'Location' => 'Freelancer',
-    'Reason' => 'Project Request',
-    'ContactInfo' => 'https://www.freelancer.com/u/jordanmcastro',
-], $outputPdfFilePath);
+singleSign($pdfFilePath, $certificatePath, $privateKeyPath, $passwordForPrivateKey, $outputPdfFilePath);
 
 // Verify the PDF was signed.
 $res = verifySignedPDF($outputPdfFilePath);
