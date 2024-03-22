@@ -69,25 +69,3 @@ function verifySignedPDF($file) {
 
     return $valid;
 }
-
-// $res = verifySignedPDF("newfile.pdf");
-// if ($res) {
-//     echo "WORKED";
-// } else {
-//     echo "NOT WORKED";
-// }
-
-// singleSign("example_001.pdf", "tcpdf.crt", "tcpdf.pem", "password", [
-//     'Name' => 'LUUVEN',
-//     'Location' => 'Freelancer',
-//     'Reason' => 'Project Request',
-//     'ContactInfo' => 'https://www.freelancer.com/u/jordanmcastro',
-// ], "newfile.pdf");
-
-// $res = verifySignedPDF("newfile.pdf");
-
-// if ($res) {
-//     echo "WORKED";
-// } else {
-//     echo "NOT WORKED";
-// }
