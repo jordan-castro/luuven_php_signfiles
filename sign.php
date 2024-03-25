@@ -20,7 +20,7 @@ function singleSign($file, $certification, $private_key, $password, $signedFile=
     }
 
     // Call PYHANKO
-    $command = "pyhanko sign addsig --field Sig1 pemder --key $private_key --cert $certification $file $signedFile --no-pass";
+    $command = "pyhanko sign addsig --no-strict-syntax --field Sig1 pemder --key $private_key --cert $certification $file $signedFile --no-pass\n";
     echo "\nCALLING: $command";
 
     $output = [];

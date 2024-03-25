@@ -28,7 +28,7 @@ function multiSign($file, $certifications, $private_keys, $passwords, $signedFil
 
     do {
         $sig = "Sig" . strval($id); 
-        $command = "pyhanko sign addsig --field $sig pemder --key " . $private_keys[0] . " --cert " . $certifications[0] . " $file $signedFile --no-pass";
+        $command = "pyhanko sign addsig --no-strict-syntax --field $sig pemder --key " . $private_keys[0] . " --cert " . $certifications[0] . " $file $signedFile --no-pass\n";
         $output = [];
         $return_var = 0;
         exec($command,$output, $return_var);
@@ -38,7 +38,7 @@ function multiSign($file, $certifications, $private_keys, $passwords, $signedFil
     for ($i = 1; $i < count($certifications);$i++) {
         echo "\n Signing #" . ($i + 1);
         $sig = "Sig" . strval($id);
-        $command = "pyhanko sign addsig --field $sig pemder --key " . $private_keys[$i] . " --cert " . $certifications[$i] . " $signedFile $signedFile --no-pass";
+        $command = "pyhanko sign addsig --field $sig pemder --key " . $private_keys[$i] . " --cert " . $certifications[$i] . " $signedFile $signedFile --no-pass\n";
         echo "\nCALLING: $command";
         $output = [];
         $return_var = 0;

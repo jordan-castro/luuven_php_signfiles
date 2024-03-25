@@ -1,18 +1,25 @@
 <?php
 
-require_once "./sign.php";
+/*
+NOTES:
+ - To create self-signed signature: openssl req -x509 -nodes -days 365000 -newkey rsa:1024 -keyout tcpdf.crt -out tcpdf.crt
+ - To export crt to p12: openssl pkcs12 -export -in tcpdf.crt -out tcpdf.p12
+ - To convert pfx certificate to pem: openssl pkcs12 -in tcpdf.pfx -out tcpdf.crt -nodes
+*/
+
+require_once __DIR__ . "/sign.php";
 
 // PDF file path
-$pdfFilePath = "PDF_PATH.pdf";
+$pdfFilePath = "filegoc.pdf";
 
 // Path to your Certificate
-$certificatePath = "CERTIFICATE.crt";
+$certificatePath = "ven.crt";
 
 // Path to your private key
-$privateKeyPath = "PRIVATE_KEY.pem";
+$privateKeyPath = "ven.crt";
 
 // Password for private key
-$passwordForPrivateKey = "password";
+$passwordForPrivateKey = "";
 
 // Output PDF file path
 $outputPdfFilePath = "output.pdf";
@@ -28,3 +35,4 @@ if ($res) {
 } else {
     echo "\nPDF was not signed!";
 }
+
