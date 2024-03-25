@@ -4,16 +4,16 @@ require_once "./multisign.php";
 require_once "./sign.php";
 
 // PDF file path
-$pdfFilePath = "INPUT.pdf";
+$pdfFilePath = "filegoc.pdf";
 
 // Path to your Certificate
-$certificatePath = ["CERTIFICATE_1.crt", "CERTIFICATE_2.crt"];
+$certificatePath = ["ven.crt", "ven.crt"];
 
 // Path to your private key
-$privateKeyPath = ["PRIVATE_KEY_1.pem", "PRIVATE_KEY_2.pem"];
+$privateKeyPath = ["", ""];
 
 // Password for private key
-$passwordForPrivateKey = ["password", "password"];
+$passwordForPrivateKey = ["", ""];
 
 // Output PDF file path
 $outputPdfFilePath = "output.pdf";

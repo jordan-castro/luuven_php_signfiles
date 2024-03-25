@@ -18,7 +18,7 @@ $certificatePath = "ven.crt";
 // Path to your private key
 $privateKeyPath = "ven.crt";
 
-// Password for private key
+// File that contains password for private key
 $passwordForPrivateKey = "";
 
 // Output PDF file path
